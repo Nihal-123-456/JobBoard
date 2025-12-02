@@ -17,8 +17,6 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.shortcuts import render
-from django.conf import settings
-from django.conf.urls.static import static
 
 def landing_page(request):
     return render(request, "landing.html")
@@ -30,4 +28,4 @@ urlpatterns = [
     path("jobs/", include("jobs.urls")),
     path("employer/", include("employers.urls")),
     path("jobseeker/", include("job_seekers.urls"))
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] 

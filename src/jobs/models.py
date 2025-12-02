@@ -1,5 +1,9 @@
 from django.db import models
 from django.conf import settings
+from cloudinary.models import CloudinaryField
+from helpers import cloudinary_init
+
+cloudinary_init()
 
 class JobCategory(models.Model):
     name = models.CharField(max_length=100, unique=True)
@@ -28,12 +32,23 @@ class Job(models.Model):
     def __str__(self):
         return self.title
 
+def get_display_name(instance, *args, **kwargs):
+    if instance.full_name:
+        return f'resume-of-{instance.full_name}'
+    return 'user-resume'
+
 class JobApplication(models.Model):
     job = models.ForeignKey(Job, on_delete=models.CASCADE, related_name='applications')
     applicant = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='applications')
     full_name = models.CharField(max_length=255)
     email = models.EmailField()
-    resume = models.FileField(upload_to='resumes/')
+
+    resume = CloudinaryField(resource_type='raw', display_name=get_display_name, 
+    tags=["user", "resume", "jobseeker"], 
+    public_id_prefix="user_resume",
+    allowed_formats=['pdf', 'doc', 'docx', 'odt', 'txt', 'rtf'],
+    folder='jobseeker_resumes', overwrite=True)
+    
     cover_letter = models.TextField(blank=True, null=True)
     applied_at = models.DateTimeField(auto_now_add=True)
 
