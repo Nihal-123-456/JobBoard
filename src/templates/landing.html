@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block title %}Welcome | JobBoard{% endblock %}
+
+{% block content %}
+<!-- Hero -->
+<section class="hero text-center">
+  <div class="container">
+    <h1 class="display-3 fw-bold mb-4">Your Dream Career Starts Here.</h1>
+    <p class="lead mb-5 col-lg-8 mx-auto">Connect with top talent or discover your next opportunity. CareerLaunch bridges the gap between ambition and achievement.</p>
+    <div class="d-grid d-md-flex justify-content-center gap-4">
+      {% if user.is_authenticated %}
+        {% if user.role == 'employer' %}
+        <a href="{% url 'employer-dashboard' %}" class="btn btn-outline-light btn-lg px-5">Start Hiring</a>
+        {% else %}
+        <a href="{% url 'jobseeker-dashboard' %}" class="btn btn-outline-light btn-lg px-5">Find your job</a>
+        {% endif %}
+      {% else %}
+        <a href="{% url 'register' %}" class="btn btn-outline-light btn-lg px-5">Get Started</a>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<!-- How It Works - Job Seekers -->
+<section class="py-5">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="display-5">How It Works for Job Seekers</h2>
+    </div>
+    <div class="row text-center">
+      <div class="col-md-4 mb-5">
+        <i class="bi bi-person-badge step-icon mb-3"></i>
+        <h4>1. Create Your Profile</h4>
+        <p>Build a standout profile with your skills and experience.</p>
+      </div>
+      <div class="col-md-4 mb-5">
+        <i class="bi bi-magic step-icon mb-3"></i>
+        <h4>2. Find jobs</h4>
+        <p>Find jobs that fit your unique profile.</p>
+      </div>
+      <div class="col-md-4 mb-5">
+        <i class="bi bi-send-check step-icon mb-3"></i>
+        <h4>3. Apply with Ease</h4>
+        <p>Apply to jobs quickly and track your applications.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- How It Works - Employers -->
+<section class="py-5 bg-light">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="display-5">How It Works for Employers</h2>
+    </div>
+    <div class="row text-center">
+      <div class="col-md-4 mb-5">
+        <i class="bi bi-file-earmark-plus step-icon mb-3"></i>
+        <h4>1. Post a Job</h4>
+        <p>List your open positions in minutes.</p>
+      </div>
+      <div class="col-md-4 mb-5">
+        <i class="bi bi-people step-icon mb-3"></i>
+        <h4>2. Applicants Apply</h4>
+        <p>Applicants will apply to your jobs based on their preferences.</p>
+      </div>
+      <div class="col-md-4 mb-5">
+        <i class="bi bi-lightning-charge step-icon mb-3"></i>
+        <h4>3. View Profile</h4>
+        <p>View the CV & Profile of applicants to see if they match your criteria.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Final CTA -->
+<section class="cta-section py-5 text-center">
+  <div class="container px-3">
+    <h2 class="display-4 mb-4">Ready to Transform Your Career or Your Team?</h2>
+    <div class="d-grid d-md-flex justify-content-center gap-4">
+      {% if user.is_authenticated %}
+        {% if user.role == 'employer' %}
+        <a href="{% url 'employer-dashboard' %}" class="btn btn-outline-light btn-lg px-5">Start Hiring</a>
+        {% else %}
+        <a href="{% url 'jobseeker-dashboard' %}" class="btn btn-outline-light btn-lg px-5">Find your job</a>
+        {% endif %}
+      {% else %}
+        <a href="{% url 'register' %}" class="btn btn-outline-light btn-lg px-5">Get Started</a>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endblock %}

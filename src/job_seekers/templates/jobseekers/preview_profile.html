@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Profile Preview | JobBoard{% endblock %}
+{% block content %}
+<!-- Profile header -->
+<div class="profile-header text-center text-md-start">
+  <div class="container">
+    <div class="row align-items-end">
+      <div class="col-md-9">
+        <h1 class="display-4 fw-bold">{{ applicant.get_full_name | default:applicant.username }}</h1>
+        <p class="lead fw-medium mb-3">{{ applicant.headline | default:'...' }}</p>
+        <div class="d-flex flex-wrap gap-3 justify-content-center justify-content-md-start align-items-center">
+          <span><i class="bi bi-geo-alt-fill me-1"></i>{{ applicant.address | default:'' }}</span>
+          <span><i class="bi bi-envelope me-1"></i>{{ applicant.email }}</span>
+          <span><i class="bi bi-phone me-1"></i>{{ applicant.mobile | default:'' }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Education -->
+<div class="section-card mt-4">
+  <h4 class="fw-bold mb-4">Education</h4>
+  {% if educations %}
+  {% for edu in educations %}
+  <div class="mb-4"> 
+    <h6 class="fw-bold">{{ edu.degree }} • {{ edu.major }}</h6>
+    <p class="text-primary">{{ edu.institution }}</p>
+    <small class="text-muted">Passed in {{ edu.passing_year }}  • Graduated with a result of {{ edu.result }}</small>
+  </div>
+  {% endfor %}
+  {% else %}
+  <h4 class="text-center mt-3">No Educational records were found</h4>
+  {% endif %}
+</div>
+
+<!-- Experience -->
+<div class="section-card position-relative mt-4">
+  <h4 class="fw-bold mb-4">Work Experience</h4>
+  {% if experiences %}
+  <div class="position-relative ps-1">
+    {% for exp in experiences %}
+    <div class="mb-5 position-relative">
+      <div class="bg-white p-4 rounded shadow-sm border-start border-primary border-4">
+        <h5 class="fw-bold">{{ exp.position }}</h5>
+        <p class="text-primary fw-medium">{{ exp.institution }}</p>
+        <small class="text-muted">{{ exp.start_date }} - {% if exp.is_currently_there %}Present{% else %}{{ exp.end_date }}{% endif %}</small>
+        <p class="mt-3">{{ exp.responsibilities }}</p>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <h4 class="text-center mt-3">No Experience records were found</h4>
+  {% endif %}
+</div>
+{% endblock %}

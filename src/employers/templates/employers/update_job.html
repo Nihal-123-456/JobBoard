@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Edit Job | JobBoard{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center" style="margin-top: 120px;">
+    <div class="form-card">
+        <h2>Edit Job: {{ job.title }}</h2>
+        {% load crispy_forms_tags %}
+        <form class="mt-4" method="post">
+            {% csrf_token %}
+            
+            {{ form|crispy }}
+            <button type="submit" class="w-100 btn btn-dark mt-3 fw-bold mb-3">Save Changes</button>
+            <a href="{% url 'employer-dashboard' %}" class="w-100 btn btn-danger mt-2 fw-bold mb-3">Cancel</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

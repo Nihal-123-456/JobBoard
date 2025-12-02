@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block title %}Notifications | JobBoard{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="row">
+    <!-- Notification List -->
+    <div class="">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+          <h1 class="h3 fw-bold">Notifications</h1>
+          <p class="text-muted">Stay updated on your job search activity</p>
+        </div>
+        <div class="text-end">
+          <span class="badge bg-primary fs-6">{{ user.unread_notifications }} Unread</span><br>
+          <small class="text-muted">{{ notifications|length }} Total</small>
+        </div>
+      </div>
+
+      <!-- Notification List -->
+      {% if notifications %}
+      <div id="notificationList">
+        {% for n in notifications %}
+        <div class="notification-item {% if not n.is_read %} unread {% endif %} p-3 mb-3 rounded shadow-sm d-lg-flex justify-content-lg-between">
+          <div class="d-flex">
+            <div class="type-icon
+            {% if n.type == 'application' %}
+              type-application
+            {% elif n.type == 'profile_view' %}
+              type-profile-view
+            {% else %}
+              type-withdraw
+            {% endif %} 
+            me-3 flex-shrink-0">
+            {% if n.type == 'application' %}
+              <i class="bi bi-file-check"></i>
+            {% elif n.type == 'profile_view' %}
+              <i class="bi bi-stars"></i>
+            {% else %}
+              <i class="bi bi-x-circle"></i>
+            {% endif %}
+            </div>
+            <div class="flex-grow-1">
+              <div class="d-flex justify-content-between">
+                <small class="text-muted">{{ n.created_at|date:"M d, Y" }}</small>
+              </div>
+              <p class="mb-1 title">{% if not n.is_read %}
+                <span class="unread-dot"></span>
+                {% endif %}{{ n.message }}</p>
+              
+              {% if n.related_job %}
+                <small><a class="text-decoration-none" href="{% url 'job-detail' n.related_job.id %}">{{ n.related_job.title }} • </a></small>
+              {% endif %}
+              {% if n.actor %}
+                {% if n.type == 'profile_view' %}
+                    <small>{{ n.related_job.company_name }}</small>
+                {% else %}
+                  {% if n.type == 'application' %}
+                    <small><a class="text-decoration-none" href="{% url 'view-applicant-profile' n.related_job.id n.actor.id %}">{{ n.actor.get_full_name|default:n.actor.username }}</a></small>
+                  {% else %}
+                    <small>{{ n.actor.get_full_name|default:n.actor.username }}</small>
+                  {% endif %}
+                {% endif %}
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="d-flex gap-3 justify-content-center mt-3 mt-lg-0">
+            {% if not n.is_read %}
+              <form action="{% url 'notification-read' n.id %}" method="post" style="display:inline;">
+                {% csrf_token %}
+                <button class="btn btn-sm btn-outline-success">Mark read</button>
+              </form>
+            {% endif %}
+            <form action="{% url 'notification-delete' n.id %}" method="post" style="display:inline;">
+              {% csrf_token %}
+              <button class="btn btn-sm btn-outline-danger">Delete</button>
+            </form>
+          </div>
+
+        </div> 
+        {% endfor %} 
+      </div>
+      {% else %}
+      <h3 class="text-center mt-3">There are no notifications for you</h3>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}
