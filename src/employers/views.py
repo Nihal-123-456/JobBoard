@@ -27,7 +27,7 @@ def create_job(request):
             messages.success(request, "Job listing created successfully!")
             return redirect("employer-dashboard")
     else:
-        form = JobForm()
+        form = JobForm(submit_text="Create Job")
 
     return render(request, "employers/create_job.html", {"form": form})
 
@@ -60,7 +60,7 @@ def update_job(request, job_id):
             messages.success(request, "Job updated successfully!")
             return redirect("employer-dashboard")
     else:
-        form = JobForm(instance=job)
+        form = JobForm(instance=job, submit_text="Save Changes")
 
     return render(request, "employers/update_job.html", {"form": form, "job": job})
 

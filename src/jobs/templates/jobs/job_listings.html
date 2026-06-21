@@ -1,53 +1,60 @@
 {% extends "base.html" %}
-{% block title %}Job Listings | JobBoard{% endblock %}
+{% block title %}Browse Jobs | JobBoard{% endblock %}
 
 {% block content %}
-<div class="col-12" style="margin-top: 100px;">
-    <div class="d-lg-flex justify-content-lg-between align-items-lg-center mb-4">
-    <div>
-        <h4 class="fw-bold mb-3 mb-lg-0">{{ jobs.count }} jobs found</h4>
-    </div>
-    <div>
-        <!-- Category Filter -->
-        <form method="get">
+<div class="row">
+    <div class="col-12 mb-5">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
             <div>
-                <div>
-                    <select name="category" class="form-select" onchange="this.form.submit()">
+                <h2 class="fw-bold mb-1">Available Positions</h2>
+                <p class="text-muted mb-0">{{ jobs.count }} opportunity{% if jobs.count != 1 %}es{% endif %} found</p>
+            </div>
+            
+            <div class="d-flex align-items-center">
+                <form method="get" class="d-flex align-items-center">
+                    <label class="me-2 fw-semibold text-nowrap">Filter by:</label>
+                    <select name="category" class="form-select rounded-pill" onchange="this.form.submit()">
                         <option value="">All Categories</option>
                         {% for c in categories %}
                             <option value="{{ c.id }}" {% if request.GET.category|default:'' == c.id|stringformat:'s' %}selected{% endif %}>{{ c.name }}</option>
                         {% endfor %}
                     </select>
-                </div>
+                </form>
             </div>
-        </form>
-    </div>
+        </div>
     </div>
 
-    <!-- Jobs -->
-    <div class="row g-4 mt-4">
-    {% if jobs %}
-    {% for job in jobs %}
-    <div class="col-md-6">
-        <div class="job-card">
-        <div class="d-flex align-items-start justify-content-between mb-3">
-            <div class="d-flex align-items-center">
-            <div>
-                <h6 class="mb-0"><a href="#" class="text-decoration-none">{{ job.title }}</a></h6>
-                <small class="text-muted">{{ job.company_name }} • {{ job.location }}</small>
+    <!-- Jobs Grid -->
+    <div class="col-12">
+        {% if jobs %}
+        <div class="row g-4">
+            {% for job in jobs %}
+            <div class="col-md-6 col-lg-4">
+                <div class="job-card h-100 d-flex flex-column">
+                    <div class="mb-3">
+                        <span class="badge bg-primary-light text-primary mb-2 rounded-pill px-3 py-1">{{ job.category.name|default:"General" }}</span>
+                        <h5 class="mb-1"><a href="{% url 'job-detail' job.id %}" class="title-link">{{ job.title }}</a></h5>
+                        <p class="text-muted small mb-0"><i class="bi bi-building me-1"></i> {{ job.company_name }} • <i class="bi bi-geo-alt me-1"></i> {{ job.location }}</p>
+                    </div>
+                    
+                    <div class="mt-auto pt-3 border-top d-flex justify-content-between align-items-center">
+                        <small class="text-muted">
+                            <i class="bi bi-calendar3 me-1"></i> {{ job.date_posted|date:"M d" }} • 
+                            <i class="bi bi-people me-1"></i> {{ job.applications.count }} app.
+                        </small>
+                        <a href="{% url 'job-detail' job.id %}" class="btn btn-outline-primary btn-sm rounded-pill px-3">View</a>
+                    </div>
+                </div>
             </div>
-            </div>
+            {% endfor %}
         </div>
-        <small class="text-muted">{{ job.date_posted|date:"M d, Y" }} • {{ job.applications.count }} applicants</small>
-        <div class="mt-3">
-            <a href="{% url 'job-detail' job.id %}" class="btn btn-outline-primary btn-sm">View Details</a>
+        {% else %}
+        <div class="text-center py-5 bg-white rounded-4 border">
+            <i class="bi bi-search fs-1 text-muted mb-3"></i>
+            <h4 class="text-muted">No jobs found in this category.</h4>
+            <a href="{% url 'job-listings' %}" class="btn btn-primary mt-3 rounded-pill">Clear Filters</a>
         </div>
-        </div>
-    </div>
-    {% endfor %}
-    {% else %}
-    <h4 class="text-center mt-3">No jobs Found.</h4>
-    {% endif %}
+        {% endif %}
     </div>
 </div>
 {% endblock %}

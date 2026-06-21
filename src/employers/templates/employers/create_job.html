@@ -1,17 +1,18 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 {% block title %}Create Job | JobBoard{% endblock %}
 
 {% block content %}
-<div class="d-flex justify-content-center align-items-center" style="margin-top: 120px;">
-    <div class="form-card">
-        <h2>Create a New Job Listing</h2>
-        {% load crispy_forms_tags %}
-        <form class="mt-4" method="post">
-            {% csrf_token %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="form-card">
+            <div class="text-center mb-4">
+                <h2 class="fw-bold">Create a New Job Listing</h2>
+                <p class="text-muted">Fill out the details below to publish your opening.</p>
+            </div>
             
-            {{ form|crispy }}
-            <button type="submit" class="w-100 btn btn-dark mt-3 fw-bold mb-3">Create Job</button>
-        </form>
+            {% crispy form %}
+        </div>
     </div>
 </div>
 {% endblock %}

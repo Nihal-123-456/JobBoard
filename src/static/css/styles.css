@@ -1,9 +1,11 @@
+.bg-primary-light { background-color: var(--primary-light); }
+.bg-success-light { background-color: #d1fae5; } /* Emerald-100 equivalent */
+
 /* 
 =========================================
    CARREERLAUNCH / JOBBOARD STYLESHEET
 =========================================
 */
-
 :root {
     --primary: #4f46e5;       /* Indigo-600 */
     --primary-hover: #4338ca; /* Indigo-700 */
