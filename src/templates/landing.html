@@ -1,91 +1,118 @@
 {% extends "base.html" %}
 {% block title %}Welcome | JobBoard{% endblock %}
 
-{% block content %}
-<!-- Hero -->
-<section class="hero text-center">
-  <div class="container">
-    <h1 class="display-3 fw-bold mb-4">Your Dream Career Starts Here.</h1>
-    <p class="lead mb-5 col-lg-8 mx-auto">Connect with top talent or discover your next opportunity. CareerLaunch bridges the gap between ambition and achievement.</p>
-    <div class="d-grid d-md-flex justify-content-center gap-4">
-      {% if user.is_authenticated %}
-        {% if user.role == 'employer' %}
-        <a href="{% url 'employer-dashboard' %}" class="btn btn-outline-light btn-lg px-5">Start Hiring</a>
-        {% else %}
-        <a href="{% url 'jobseeker-dashboard' %}" class="btn btn-outline-light btn-lg px-5">Find your job</a>
-        {% endif %}
-      {% else %}
-        <a href="{% url 'register' %}" class="btn btn-outline-light btn-lg px-5">Get Started</a>
-      {% endif %}
-    </div>
-  </div>
-</section>
-
-<!-- How It Works - Job Seekers -->
-<section class="py-5">
-  <div class="container">
-    <div class="text-center mb-5">
-      <h2 class="display-5">How It Works for Job Seekers</h2>
-    </div>
-    <div class="row text-center">
-      <div class="col-md-4 mb-5">
-        <i class="bi bi-person-badge step-icon mb-3"></i>
-        <h4>1. Create Your Profile</h4>
-        <p>Build a standout profile with your skills and experience.</p>
+{% block main_wrapper %}
+<!-- Hero Section -->
+<section class="hero">
+  <div class="hero-glow-1"></div>
+  <div class="container position-relative" style="z-index: 2;">
+    <div class="row align-items-center">
+      <div class="col-lg-7">
+        <div class="hero-badge"><i class="bi bi-star-fill me-1 text-warning"></i> #1 Job Portal for Tech Professionals</div>
+        <h1 class="display-2 fw-extrabold mb-4">Your Dream Career <br><span class="text-primary">Starts Here.</span></h1>
+        <p class="lead mb-5 text-muted col-lg-10">Connect with top talent or discover your next opportunity. CareerLaunch bridges the gap between ambition and achievement with a seamless hiring experience.</p>
+        <div class="d-flex gap-3">
+          {% if user.is_authenticated %}
+            {% if user.role == 'employer' %}
+              <a href="{% url 'employer-dashboard' %}" class="btn btn-primary btn-lg px-4">Start Hiring</a>
+            {% else %}
+              <a href="{% url 'jobseeker-dashboard' %}" class="btn btn-primary btn-lg px-4">Find your job</a>
+            {% endif %}
+          {% else %}
+            <a href="{% url 'register' %}" class="btn btn-primary btn-lg px-4">Get Started</a>
+            <a href="{% url 'job-listings' %}" class="btn btn-light btn-lg px-4">Browse Jobs</a>
+          {% endif %}
+        </div>
       </div>
-      <div class="col-md-4 mb-5">
-        <i class="bi bi-magic step-icon mb-3"></i>
-        <h4>2. Find jobs</h4>
-        <p>Find jobs that fit your unique profile.</p>
-      </div>
-      <div class="col-md-4 mb-5">
-        <i class="bi bi-send-check step-icon mb-3"></i>
-        <h4>3. Apply with Ease</h4>
-        <p>Apply to jobs quickly and track your applications.</p>
+      <div class="col-lg-5 d-none d-lg-block text-center">
+        <i class="bi bi-briefcase text-primary" style="font-size: 15rem; opacity: 0.1;"></i>
       </div>
     </div>
   </div>
 </section>
 
-<!-- How It Works - Employers -->
-<section class="py-5 bg-light">
-  <div class="container">
+<!-- Features / How It Works -->
+<section class="py-5 bg-white">
+  <div class="container py-5">
     <div class="text-center mb-5">
-      <h2 class="display-5">How It Works for Employers</h2>
+      <h2 class="display-5 fw-bold">How It Works</h2>
+      <p class="text-muted">A streamlined process for both sides of the hiring equation.</p>
     </div>
-    <div class="row text-center">
-      <div class="col-md-4 mb-5">
-        <i class="bi bi-file-earmark-plus step-icon mb-3"></i>
-        <h4>1. Post a Job</h4>
-        <p>List your open positions in minutes.</p>
+    
+    <div class="row g-4">
+      <!-- Candidates -->
+      <div class="col-lg-6">
+        <div class="step-card">
+          <h4 class="mb-4 d-flex align-items-center"><i class="bi bi-person-circle me-2 text-primary"></i> For Candidates</h4>
+          <div class="d-flex mb-3">
+            <div class="step-icon-wrapper me-3"><i class="bi bi-person-badge"></i></div>
+            <div>
+              <h5>Build Your Profile</h5>
+              <p class="text-muted mb-0">Showcase your skills, education, and work experience.</p>
+            </div>
+          </div>
+          <div class="d-flex mb-3">
+            <div class="step-icon-wrapper me-3"><i class="bi bi-search"></i></div>
+            <div>
+              <h5>Find Opportunities</h5>
+              <p class="text-muted mb-0">Browse tailored job listings that match your criteria.</p>
+            </div>
+          </div>
+          <div class="d-flex">
+            <div class="step-icon-wrapper me-3"><i class="bi bi-send-check"></i></div>
+            <div>
+              <h5>Apply Instantly</h5>
+              <p class="text-muted mb-0">One-click applications with resume support.</p>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="col-md-4 mb-5">
-        <i class="bi bi-people step-icon mb-3"></i>
-        <h4>2. Applicants Apply</h4>
-        <p>Applicants will apply to your jobs based on their preferences.</p>
-      </div>
-      <div class="col-md-4 mb-5">
-        <i class="bi bi-lightning-charge step-icon mb-3"></i>
-        <h4>3. View Profile</h4>
-        <p>View the CV & Profile of applicants to see if they match your criteria.</p>
+
+      <!-- Employers -->
+      <div class="col-lg-6">
+        <div class="step-card">
+          <h4 class="mb-4 d-flex align-items-center"><i class="bi bi-building me-2 text-accent"></i> For Employers</h4>
+          <div class="d-flex mb-3">
+            <div class="step-icon-wrapper cyan me-3"><i class="bi bi-plus-circle"></i></div>
+            <div>
+              <h5>Post Jobs</h5>
+              <p class="text-muted mb-0">Create detailed job posts in just a few minutes.</p>
+            </div>
+          </div>
+          <div class="d-flex mb-3">
+            <div class="step-icon-wrapper cyan me-3"><i class="bi bi-people"></i></div>
+            <div>
+              <h5>Manage Talent</h5>
+              <p class="text-muted mb-0">Efficiently review applicant profiles and resumes.</p>
+            </div>
+          </div>
+          <div class="d-flex">
+            <div class="step-icon-wrapper cyan me-3"><i class="bi bi-lightning"></i></div>
+            <div>
+              <h5>Hire Fast</h5>
+              <p class="text-muted mb-0">Track application statuses and make decisions quickly.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- Final CTA -->
-<section class="cta-section py-5 text-center">
-  <div class="container px-3">
-    <h2 class="display-4 mb-4">Ready to Transform Your Career or Your Team?</h2>
-    <div class="d-grid d-md-flex justify-content-center gap-4">
+<section class="py-5">
+  <div class="container">
+    <div class="cta-section p-5 text-center">
+      <h2 class="display-4 fw-bold mb-3">Ready to Accelerate?</h2>
+      <p class="lead mb-4 opacity-75">Join thousands of professionals already finding success on our platform.</p>
       {% if user.is_authenticated %}
         {% if user.role == 'employer' %}
-        <a href="{% url 'employer-dashboard' %}" class="btn btn-outline-light btn-lg px-5">Start Hiring</a>
+        <a href="{% url 'employer-dashboard' %}" class="btn btn-light btn-lg">Go to Dashboard</a>
         {% else %}
-        <a href="{% url 'jobseeker-dashboard' %}" class="btn btn-outline-light btn-lg px-5">Find your job</a>
+        <a href="{% url 'jobseeker-dashboard' %}" class="btn btn-light btn-lg">Go to Dashboard</a>
         {% endif %}
       {% else %}
-        <a href="{% url 'register' %}" class="btn btn-outline-light btn-lg px-5">Get Started</a>
+        <a href="{% url 'register' %}" class="btn btn-light btn-lg px-5">Join Now</a>
       {% endif %}
     </div>
   </div>
