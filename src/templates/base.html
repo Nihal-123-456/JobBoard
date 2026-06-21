@@ -41,14 +41,14 @@
             </span>
             
             {% if user.role == "employer" %}
-                <a href="{% url 'employer-dashboard' %}" class="btn btn-outline-primary"><i class="bi bi-speedometer2 me-1"></i> Dashboard</a>
+                <a href="{% url 'employer-dashboard' %}" class="btn btn-outline-primary btn-sm px-3 rounded-pill"><i class="bi bi-speedometer2 me-1"></i> Dashboard</a>
             {% elif user.role == "job_seeker" %}
-                <a href="{% url 'jobseeker-dashboard' %}" class="btn btn-outline-primary"><i class="bi bi-speedometer2 me-1"></i> Dashboard</a>
+                <a href="{% url 'jobseeker-dashboard' %}" class="btn btn-outline-primary btn-sm px-3 rounded-pill"><i class="bi bi-speedometer2 me-1"></i> Dashboard</a>
             {% endif %}
-            <a href="{% url 'logout' %}" class="btn btn-primary"><i class="bi bi-box-arrow-right"></i></a>
+            <a href="{% url 'logout' %}" class="btn btn-primary btn-sm px-3 rounded-pill"><i class="bi bi-box-arrow-right"></i></a>
         {% else %}
-            <a href="{% url 'login' %}" class="btn btn-outline-primary">Sign In</a>
-            <a href="{% url 'register' %}" class="btn btn-primary">Sign Up</a>
+            <a href="{% url 'login' %}" class="btn btn-outline-primary btn-sm px-3 rounded-pill">Sign In</a>
+            <a href="{% url 'register' %}" class="btn btn-primary btn-sm px-3 rounded-pill">Sign Up</a>
         {% endif %}
       </div>
     </div>
@@ -91,7 +91,7 @@
           <i class="bi bi-rocket-takeoff-fill me-2 text-primary"></i>
           <span>JobBoard</span>
         </h4>
-        <p class="pe-lg-4 text-muted">Connecting ambition with opportunity. Discover top-tier jobs or hire elite talent across global industries. Your next big career leap begins here.</p>
+        <p class="pe-lg-4">Connecting ambition with opportunity. Discover top-tier jobs or hire elite talent across global industries. Your next big career leap begins here.</p>
         <div class="d-flex gap-2 mt-4">
           <a href="#" class="footer-social-link"><i class="bi bi-facebook"></i></a>
           <a href="#" class="footer-social-link"><i class="bi bi-twitter-x"></i></a>
@@ -123,7 +123,7 @@
       </div>
       <div class="col-md-6 col-lg-3">
         <h6 class="text-white fw-bold mb-3">Stay Updated</h6>
-        <p class="small text-muted">Subscribe to our newsletter for weekly career tips and hot job alerts.</p>
+        <p class="small">Subscribe to our newsletter for weekly career tips and hot job alerts.</p>
         <div class="input-group mb-3">
           <input type="email" class="form-control bg-dark border-secondary text-white shadow-none" placeholder="Your email address" style="border-radius: 8px 0 0 8px; font-size: 0.9rem;">
           <button class="btn btn-primary" type="button" style="border-radius: 0 8px 8px 0; font-size: 0.9rem;">Join</button>
@@ -132,11 +132,11 @@
     </div>
     <hr class="my-4">
     <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
-      <p class="mb-0 text-muted">&copy; 2026 JobBoard. Crafted for professionals. All rights reserved.</p>
+      <p class="mb-0">&copy; 2026 JobBoard. Crafted for professionals. All rights reserved.</p>
       <div class="d-flex gap-4">
-        <a href="#" class="small text-muted">Privacy Policy</a>
-        <a href="#" class="small text-muted">Terms of Service</a>
-        <a href="#" class="small text-muted">Contact Us</a>
+        <a href="#" class="small">Privacy Policy</a>
+        <a href="#" class="small">Terms of Service</a>
+        <a href="#" class="small">Contact Us</a>
       </div>
     </div>
   </div>

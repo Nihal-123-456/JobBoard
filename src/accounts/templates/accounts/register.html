@@ -1,26 +1,22 @@
 {% extends "base.html" %}
-{% block title %}JobBoard | Register{% endblock %}
+{% load crispy_forms_tags %}
+{% block title %}Register | JobBoard{% endblock %}
 
 {% block content %}
-    <div class="d-flex justify-content-center align-items-center" style="margin-top: 120px;">
+<div class="row justify-content-center">
+    <div class="col-lg-6 col-md-8">
         <div class="form-card">
-            <h2>Register</h2>
-            {% load crispy_forms_tags %}
-            <form class="mt-4" method="post">
-                {% csrf_token %}
-                <!-- {{form|crispy}} -->
-
-                {% for field in form %}
-                    <div class="mb-3">
-                        <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}
-                        {% if field.field.required %}<span>*</span>{% endif %}</label>
-                        {{ field }}
-                        <p class="text-danger">{{field.errors|striptags}}</p>
-                    </div>
-                {% endfor %}
-
-                <button type="submit" class="w-100 btn btn-dark mt-3 fw-bold mb-3">Register</button>
-            </form>
+            <div class="text-center mb-4">
+                <h2 class="fw-bold">Create Account</h2>
+                <p class="text-muted">Join our community of professionals and companies.</p>
+            </div>
+            
+            {% crispy form %}
+            
+            <div class="text-center mt-4 text-muted small">
+                Already have an account? <a href="{% url 'login' %}" class="text-primary fw-bold">Sign In</a>
+            </div>
         </div>
     </div>
+</div>
 {% endblock %}

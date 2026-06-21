@@ -1,18 +1,22 @@
 {% extends "base.html" %}
-{% block title %}JobBoard | Login{% endblock %}
+{% load crispy_forms_tags %}
+{% block title %}Sign In | JobBoard{% endblock %}
 
 {% block content %}
-    <div class="d-flex justify-content-center align-items-center vh-100">
+<div class="row justify-content-center">
+    <div class="col-lg-5 col-md-7">
         <div class="form-card">
-            <h2>Login</h2>
-            {% load crispy_forms_tags %}
-            <form class="mt-4" method="post">
-                {% csrf_token %}
-                
-                {{ form|crispy }}
-                <button type="submit" class="w-100 btn btn-dark mt-3 fw-bold mb-3">Login</button>
-            </form>
+            <div class="text-center mb-4">
+                <h2 class="fw-bold">Sign In</h2>
+                <p class="text-muted">Welcome back! Please enter your details.</p>
+            </div>
+            
+            {% crispy form %}
+            
+            <div class="text-center mt-4 text-muted small">
+                Don't have an account? <a href="{% url 'register' %}" class="text-primary fw-bold">Sign Up</a>
+            </div>
         </div>
     </div>
-    
+</div>
 {% endblock %}

@@ -117,4 +117,51 @@
     </div>
   </div>
 </section>
+
+<!-- Featured Categories -->
+<section class="py-5 bg-light">
+  <div class="container py-4">
+    <h3 class="mb-4 text-center">Explore by Category</h3>
+    <div class="row g-4 justify-content-center">
+      <div class="col-md-3 col-6">
+        <a href="{% url 'job-listings' %}" class="category-card text-center">
+          <div class="category-icon mx-auto"><i class="bi bi-code-slash"></i></div>
+          <h5>Technology</h5>
+        </a>
+      </div>
+      <div class="col-md-3 col-6">
+        <a href="{% url 'job-listings' %}" class="category-card text-center">
+          <div class="category-icon mx-auto"><i class="bi bi-graph-up-arrow"></i></div>
+          <h5>Marketing</h5>
+        </a>
+      </div>
+      <div class="col-md-3 col-6">
+        <a href="{% url 'job-listings' %}" class="category-card text-center">
+          <div class="category-icon mx-auto"><i class="bi bi-bank"></i></div>
+          <h5>Finance</h5>
+        </a>
+      </div>
+      <div class="col-md-3 col-6">
+        <a href="{% url 'job-listings' %}" class="category-card text-center">
+          <div class="category-icon mx-auto"><i class="bi bi-palette"></i></div>
+          <h5>Design</h5>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Trusted Section -->
+<section class="py-5">
+  <div class="container py-4 text-center">
+    <h4 class="mb-5 text-muted">Trusted by Leading Companies</h4>
+    <div class="row justify-content-center align-items-center g-5 opacity-50">
+        <div class="col-2"><i class="bi bi-google fs-2"></i></div>
+        <div class="col-2"><i class="bi bi-meta fs-2"></i></div>
+        <div class="col-2"><i class="bi bi-microsoft fs-2"></i></div>
+        <div class="col-2"><i class="bi bi-amazon fs-2"></i></div>
+        <div class="col-2"><i class="bi bi-apple fs-2"></i></div>
+    </div>
+  </div>
+</section>
 {% endblock %}
