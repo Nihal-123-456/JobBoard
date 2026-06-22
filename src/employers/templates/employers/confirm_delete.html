@@ -2,15 +2,30 @@
 {% block title %}Delete Job | JobBoard{% endblock %}
 
 {% block content %}
-<div class="d-flex justify-content-center align-items-center vh-100">
-    <div class="form-card">
-        <h2>Delete Job</h2>
-        <p>Are you sure you want to delete this job - <strong>{{ job.title }}</strong>?</p>
-        <form class="mt-4" method="post">
-            {% csrf_token %}
-            <button type="submit" class="w-100 btn btn-danger mt-3 fw-bold mb-3">Yes, Delete</button>
-            <a href="{% url 'employer-dashboard' %}" class="w-100 btn btn-dark mt-3 fw-bold mb-3">Cancel</a>
-        </form>
+<div class="container" style="margin-top: 100px;">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+            <div class="form-card border-danger">
+                <div class="text-center mb-4">
+                    <div class="text-danger mb-3">
+                        <i class="bi bi-exclamation-triangle fs-1"></i>
+                    </div>
+                    <h2 class="fw-bold text-danger">Delete Job Listing</h2>
+                    <p class="text-muted">This action cannot be undone.</p>
+                </div>
+                
+                <div class="alert alert-warning text-center rounded-3 p-3">
+                    Are you sure you want to delete the job posting for<br>
+                    <strong>"{{ job.title }}"</strong>?
+                </div>
+                
+                <form class="mt-4" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="w-100 btn btn-danger py-2 fw-bold rounded-pill mb-2">Yes, Delete Listing</button>
+                    <a href="{% url 'employer-dashboard' %}" class="w-100 btn btn-light py-2 fw-bold rounded-pill border">Cancel</a>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

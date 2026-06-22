@@ -64,6 +64,13 @@ class JobSeekerProfileForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         
+        self.helper = FormHelper()
+        self.helper.form_method = 'post'
+        self.helper.layout = Layout(
+            'first_name', 'last_name', 'address', 'mobile', 'headline',
+            Submit('submit', 'Update Profile', css_class='btn btn-primary w-100 py-2 mt-3 fw-bold rounded-pill')
+        )
+        
         placeholders = {
             'first_name': 'Enter your First name',
             'last_name': 'Enter your Last name',
@@ -74,7 +81,8 @@ class JobSeekerProfileForm(forms.ModelForm):
         
         for field_name, field in self.fields.items():
             field.widget.attrs.update({
-                'placeholder': placeholders.get(field_name, f'Enter {field_name}')
+                'placeholder': placeholders.get(field_name, f'Enter {field_name}'),
+                'class': 'form-control'
             })
 
     class Meta:
