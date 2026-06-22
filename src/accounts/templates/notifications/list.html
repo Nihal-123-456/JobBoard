@@ -55,9 +55,9 @@
                     <button class="btn btn-sm btn-outline-success rounded-pill px-3">Mark read</button>
                 </form>
                 {% endif %}
-                <form action="{% url 'notification-delete' n.id %}" method="post">
+                <form class="delete-notification-form" action="{% url 'notification-delete' n.id %}" method="post">
                     {% csrf_token %}
-                    <button class="btn btn-sm btn-outline-danger rounded-pill px-3">Delete</button>
+                    <button type="submit" class="btn btn-sm btn-outline-danger rounded-pill px-3">Delete</button>
                 </form>
             </div>
         </div> 
@@ -70,4 +70,22 @@
     </div>
     {% endif %}
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const deleteForms = document.querySelectorAll('.delete-notification-form');
+        deleteForms.forEach(form => {
+            form.addEventListener('submit', function() {
+                const btn = form.querySelector('button[type="submit"]');
+                if (btn) {
+                    // Set timeout to ensure the form submits before disabling (for some browsers)
+                    setTimeout(() => {
+                        btn.disabled = true;
+                        btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span> Deleting...';
+                    }, 50);
+                }
+            });
+        });
+    });
+</script>
 {% endblock %}

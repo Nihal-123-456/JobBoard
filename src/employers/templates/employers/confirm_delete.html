@@ -19,7 +19,7 @@
                     <strong>"{{ job.title }}"</strong>?
                 </div>
                 
-                <form class="mt-4" method="post">
+                <form class="delete-job-form mt-4" method="post">
                     {% csrf_token %}
                     <button type="submit" class="w-100 btn btn-danger py-2 fw-bold rounded-pill mb-2">Yes, Delete Listing</button>
                     <a href="{% url 'employer-dashboard' %}" class="w-100 btn btn-light py-2 fw-bold rounded-pill border">Cancel</a>
@@ -28,4 +28,22 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.querySelector('.delete-job-form');
+        if (form) {
+            form.addEventListener('submit', function() {
+                const btn = form.querySelector('button[type="submit"]');
+                if (btn) {
+                    // Set timeout to ensure the form submits before disabling (for some browsers)
+                    setTimeout(() => {
+                        btn.disabled = true;
+                        btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span> Deleting...';
+                    }, 50);
+                }
+            });
+        }
+    });
+</script>
 {% endblock %}

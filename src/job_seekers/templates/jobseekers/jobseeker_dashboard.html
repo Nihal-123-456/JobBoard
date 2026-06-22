@@ -54,7 +54,7 @@
                         
                         <div class="d-flex align-items-center gap-2">
                             <a href="{% url 'job-detail' app.job.id %}" class="btn btn-light btn-sm rounded-pill px-3">View</a>
-                            <form action="{% url 'withdraw-application' app.job.id %}" method="post" style="display:inline;">
+                            <form class="withdraw-application-form" action="{% url 'withdraw-application' app.job.id %}" method="post" style="display:inline;">
                                 {% csrf_token %}
                                 <button type="submit" class="btn btn-outline-danger btn-sm rounded-pill px-3">Withdraw</button>
                             </form>
@@ -73,4 +73,22 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const withdrawForms = document.querySelectorAll('.withdraw-application-form');
+        withdrawForms.forEach(form => {
+            form.addEventListener('submit', function() {
+                const btn = form.querySelector('button[type="submit"]');
+                if (btn) {
+                    // Set timeout to ensure the form submits before disabling (for some browsers)
+                    setTimeout(() => {
+                        btn.disabled = true;
+                        btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span> Withdrawing...';
+                    }, 50);
+                }
+            });
+        });
+    });
+</script>
 {% endblock %}
